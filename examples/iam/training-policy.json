@@ -1,0 +1,82 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadCallerIdentity",
+      "Effect": "Allow",
+      "Action": [
+        "sts:GetCallerIdentity"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadNetworkConfiguration",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeAvailabilityZones",
+        "ec2:DescribeInternetGateways",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeTags",
+        "ec2:DescribeVpcAttribute",
+        "ec2:DescribeVpcs"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageTrainingVpc",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateVpc",
+        "ec2:DeleteVpc",
+        "ec2:ModifyVpcAttribute"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageTrainingSubnets",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateSubnet",
+        "ec2:DeleteSubnet",
+        "ec2:ModifySubnetAttribute"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageTrainingInternetGateway",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AttachInternetGateway",
+        "ec2:CreateInternetGateway",
+        "ec2:DeleteInternetGateway",
+        "ec2:DetachInternetGateway"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageTrainingRouteTables",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AssociateRouteTable",
+        "ec2:CreateRoute",
+        "ec2:CreateRouteTable",
+        "ec2:DeleteRoute",
+        "ec2:DeleteRouteTable",
+        "ec2:DisassociateRouteTable",
+        "ec2:ReplaceRoute",
+        "ec2:ReplaceRouteTableAssociation"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageTrainingResourceTags",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateTags",
+        "ec2:DeleteTags"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

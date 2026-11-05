@@ -1,0 +1,38 @@
+# Example Terraform variable values for the Network Foundation lab.
+#
+# Do not place real AWS credentials in this file.
+# Do not commit a real terraform.tfvars file.
+#
+# When using HCP Terraform, configure these deployment values as workspace
+# Terraform variables instead of copying private environment values into Git.
+
+aws_region = "us-east-1"
+
+# Replace this placeholder in your private HCP Terraform workspace with the
+# 12-digit AWS account ID of the intended training or sandbox account.
+expected_aws_account_id = "000000000000"
+
+# Use a generic learner or administrator identifier.
+owner_name = "Example-Learner"
+
+# Use a unique identifier for each deployment.
+deployment_id = "example-network-01"
+
+# Replace with the intended cleanup date for the training deployment.
+expiration_date = "YYYY-MM-DD"
+
+# The following values demonstrate the baseline Lab 1 network design.
+# They already match the defaults in variables.tf and normally do not need
+# to be configured unless you intentionally want to override the network plan.
+
+vpc_cidr = "10.42.0.0/16"
+
+public_subnet_cidrs = [
+  "10.42.10.0/24",
+  "10.42.20.0/24",
+]
+
+private_subnet_cidrs = [
+  "10.42.110.0/24",
+  "10.42.120.0/24",
+]
