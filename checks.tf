@@ -58,15 +58,15 @@ check "subnet_cidrs_do_not_overlap" {
   }
 }
 
-# Verify every subnet's first and last address fall inside the selected VPC
-# range. This prevents an apparently valid subnet CIDR from being configured
-# outside the Lab 1 VPC.
+# A subnet is inside the VPC when its prefix is at least as long as the VPC
+# prefix and it shares the VPC network address at the VPC prefix length.
+# This avoids newer CIDR functions so it works on every supported version.
 check "subnets_are_inside_vpc" {
   assert {
     condition = alltrue([
       for cidr in local.all_subnet_cidrs :
-      cidrcontains(var.vpc_cidr, cidrhost(cidr, 0)) &&
-      cidrcontains(var.vpc_cidr, cidrhost(cidr, -1))
+      tonumber(split("/", cidr)[1]) >= tonumber(split("/", var.vpc_cidr)[1]) &&
+      cidrhost("${cidrhost(cidr, 0)}/${split("/", var.vpc_cidr)[1]}", 0) == cidrhost(var.vpc_cidr, 0)
     ])
 
     error_message = "Every public and private subnet CIDR must be contained within vpc_cidr."
