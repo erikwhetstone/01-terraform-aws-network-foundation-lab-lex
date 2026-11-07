@@ -15,6 +15,7 @@
       "Action": [
         "ec2:DescribeAvailabilityZones",
         "ec2:DescribeInternetGateways",
+        "ec2:DescribeNetworkInterfaces",
         "ec2:DescribeRouteTables",
         "ec2:DescribeSubnets",
         "ec2:DescribeTags",
