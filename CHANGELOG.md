@@ -4,9 +4,9 @@ All notable changes to this lab are documented in this file.
 
 The format is based on Keep a Changelog, and this lab uses semantic versioning.
 
-## [Unreleased]
+## [1.0.0] - 2026-11-06
 
-This version is in private development. It has completed the HCP Terraform plan, apply, validate, and destroy lifecycle test with Terraform 1.17.1 and AWS provider 6.x, and is pending release review.
+First release. Tested through the full HCP Terraform plan, apply, validate, re-plan, and destroy lifecycle with Terraform 1.17.1 and AWS provider 6.x.
 
 ### Added
 

@@ -21,6 +21,8 @@ The baseline estimate assumes only the resources created by this repository are 
 
 Later labs that place workloads inside this network can create additional charges.
 
+Pricing reviewed November 2026 against AWS list prices: VPCs, subnets, route tables, and Internet Gateways have no hourly charge. Public IPv4 addresses cost $0.005 per hour each, and a NAT Gateway costs $0.045 per hour plus data processing in us-east-1. Lab 1 creates neither. Optional VPC features such as VPC Encryption Controls carry their own charges and are not enabled by this lab.
+
 ## Baseline Resources
 
 Lab 1 creates:
@@ -32,7 +34,7 @@ Lab 1 creates:
 - One shared public route table.
 - Two private route tables.
 - Route table associations.
-- One public IPv4 default route.
+- One default route (`0.0.0.0/0`) to the Internet Gateway. This is a route, not a public IP address.
 
 The network design is:
 
