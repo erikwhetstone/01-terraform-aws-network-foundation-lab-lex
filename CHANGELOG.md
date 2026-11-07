@@ -6,7 +6,7 @@ The format is based on Keep a Changelog, and this lab uses semantic versioning.
 
 ## [Unreleased]
 
-This version is in private development. It has not yet completed the HCP Terraform plan, apply, validate, and destroy lifecycle test and is not released.
+This version is in private development. It has completed the HCP Terraform plan, apply, validate, and destroy lifecycle test with Terraform 1.17.1 and AWS provider 6.x, and is pending release review.
 
 ### Added
 
@@ -22,6 +22,11 @@ This version is in private development. It has not yet completed the HCP Terrafo
 - README, SECURITY, COSTS, and TROUBLESHOOTING documentation.
 - Architecture, concepts, deployment, and cleanup guides in `docs/`.
 - Architecture diagram in `diagrams/architecture.png`.
+
+### Fixed
+
+- The subnet containment check no longer uses `cidrcontains`, which is not available in Terraform 1.17.1.
+- The training IAM policy now allows `ec2:DescribeNetworkInterfaces`, which subnet deletion requires.
 
 ### Not Included
 

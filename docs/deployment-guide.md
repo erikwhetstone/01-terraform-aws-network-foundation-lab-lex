@@ -29,6 +29,8 @@ For removing the lab afterward, see `cleanup-guide.md`.
 
 With auto-apply off, every run stops after the plan and waits for your approval.
 
+While in the settings, you can also pin the workspace Terraform version to a specific release instead of the latest. This keeps your runs reproducible. This lab was tested with Terraform 1.17.1.
+
 ## Step 3: Add Environment Variables
 
 Add these with the category **Environment variable**:
@@ -39,6 +41,8 @@ Add these with the category **Environment variable**:
 | `AWS_SECRET_ACCESS_KEY` | Your training secret access key | Yes |
 
 These authenticate the AWS provider. They must never be placed in any file in the repository.
+
+The HCP Terraform **Add variable** form defaults to **Terraform variable**. Select **Environment variable** before saving, or the AWS provider will not find the credentials and the plan fails with `No valid credential sources found`.
 
 ## Step 4: Add Terraform Variables
 
@@ -86,6 +90,8 @@ A successful apply ends with:
 ```text
 Apply complete! Resources: 14 added, 0 changed, 0 destroyed.
 ```
+
+The workspace header then shows **Resources 16**: the 14 managed resources plus the 2 data sources the lab reads. This is expected.
 
 ## Step 8: Review the Outputs
 

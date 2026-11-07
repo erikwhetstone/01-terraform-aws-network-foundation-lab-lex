@@ -90,6 +90,8 @@ Fix configuration errors before attempting a plan.
 
 Do not work around a validation failure by modifying AWS manually.
 
+A successful `terraform validate` does not guarantee a successful plan. Some errors, such as calling a function that does not exist inside a `check` block, are only reported when Terraform evaluates the configuration during a plan.
+
 ## HCP Terraform Cannot Authenticate to AWS
 
 Typical symptoms:
@@ -175,6 +177,8 @@ ec2:DescribeInstanceAttribute
 ec2:DescribeInstanceCreditSpecifications
 ```
 
+This lab also needs `ec2:DescribeNetworkInterfaces` when deleting subnets, because the provider checks each subnet for leftover network interfaces before removing it. It is included in the training policy.
+
 Do not attach `AdministratorAccess` to resolve permission errors. `examples/iam/training-policy.json` is a training baseline and should be refined only from demonstrated failures.
 
 ## Wrong Region
@@ -232,6 +236,17 @@ An apply can fail after some resources were created. Those resources exist in AW
 5. Queue a new plan and confirm it only creates or repairs what is missing.
 
 If a resource is marked tainted, Terraform plans to replace it. Only untaint a resource after confirming in AWS that it is healthy and correctly configured.
+
+## Destroy Partially Fails
+
+A destroy can stop partway through. Resources already removed are gone from both AWS and state, and the remaining resources stay in both.
+
+Worked example from testing this lab: a destroy removed 9 of the 14 resources, then failed on all four subnets with `UnauthorizedOperation` for `ec2:DescribeNetworkInterfaces`. The VPC was not attempted because its subnets still existed. The recovery was:
+
+1. Do not delete the remaining resources manually in the console.
+2. Add only the denied action to the training policy.
+3. Queue a new destroy plan and confirm it lists only the remaining resources, in this case `5 to destroy`.
+4. Confirm the destroy and validate cleanup using `docs/cleanup-guide.md`.
 
 ## Destroy Fails with DependencyViolation
 
