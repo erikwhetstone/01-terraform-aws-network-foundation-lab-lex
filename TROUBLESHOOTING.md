@@ -267,6 +267,48 @@ AWS will not delete a VPC, subnet, or Internet Gateway while other resources sti
 
 Never destroy this network while later labs depend on it. Do not delete the blocking resources manually unless you have confirmed no Terraform workspace manages them.
 
+## Private Subnets Stay in Deleting After Lab 2
+
+Symptom: the destroy plan runs, but the private subnets stay in **Deleting** for many minutes and may end with a timeout or `DependencyViolation`.
+
+Cause: the account uses Amazon GuardDuty Runtime Monitoring with automated EC2 agent management. When a Lab 2 instance launched in this VPC, GuardDuty created a `guardduty-data` VPC endpoint, with network interfaces in the private subnets, and a security group named `GuardDutyManagedSecurityGroup-<vpc-id>`. Terraform does not manage these resources, and AWS will not delete a subnet or VPC that still contains them.
+
+Destroy Lab 2 first. Then run these commands with an administrator AWS CLI profile, replacing `<vpc_id>` with this lab's `vpc_id` output.
+
+1. Find the GuardDuty endpoint:
+
+```bash
+aws ec2 describe-vpc-endpoints --filters Name=vpc-id,Values=<vpc_id> --query 'VpcEndpoints[].[VpcEndpointId,ServiceName,State]' --output table
+```
+
+2. Delete the endpoint whose service ends in `guardduty-data`:
+
+```bash
+aws ec2 delete-vpc-endpoints --vpc-endpoint-ids <vpce_id>
+```
+
+3. Wait until no network interfaces remain in the VPC:
+
+```bash
+until [ -z "$(aws ec2 describe-network-interfaces --filters Name=vpc-id,Values=<vpc_id> --query 'NetworkInterfaces[].NetworkInterfaceId' --output text)" ]; do sleep 15; done; echo "interfaces gone"
+```
+
+4. Find the GuardDuty security group:
+
+```bash
+aws ec2 describe-security-groups --filters Name=vpc-id,Values=<vpc_id> Name=group-name,Values=GuardDutyManagedSecurityGroup-* --query 'SecurityGroups[].GroupId' --output text
+```
+
+5. Delete it:
+
+```bash
+aws ec2 delete-security-group --group-id <sg_id>
+```
+
+If the destroy is still running, it finishes on its own. If it timed out, queue a new destroy plan; it lists only the resources that remain.
+
+These are the only resources you delete by hand, because Terraform does not own them. GuardDuty creates them again the next time an instance runs in the VPC.
+
 ## Resources Are Missing Tags
 
 Standard tags are applied through provider `default_tags`.

@@ -641,6 +641,12 @@ Do not immediately delete resources manually.
 
 Inspect the HCP Terraform run and Terraform state first. Terraform may already track resources created before the failure.
 
+### Private Subnets Stay in Deleting After Lab 2
+
+If your account uses Amazon GuardDuty Runtime Monitoring with automated EC2 agent management, GuardDuty creates its own VPC endpoint and security group in this VPC while a Lab 2 instance runs. Terraform does not manage them, and they block the private subnets and the VPC from deleting.
+
+The removal commands are in the troubleshooting guide under the same heading.
+
 See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for additional guidance.
 
 ## What Comes Next
@@ -655,6 +661,8 @@ public_subnet_ids
 ```
 
 to place an EC2 workload into the network without silently creating another VPC.
+
+[Lab 2 - EC2 Web](https://github.com/lshillingford/02-terraform-aws-ec2-web-lab) does exactly this: it deploys a hardened NGINX web server into one of these public subnets.
 
 Future labs can also use the private subnet outputs for application and database tiers.
 

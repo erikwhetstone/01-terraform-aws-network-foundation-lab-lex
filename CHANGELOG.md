@@ -4,6 +4,16 @@ All notable changes to this lab are documented in this file.
 
 The format is based on Keep a Changelog, and this lab uses semantic versioning.
 
+## [1.0.2] - 2026-11-10
+
+### Added
+
+- Troubleshooting for private subnets that stay in Deleting because GuardDuty Runtime Monitoring created a VPC endpoint while a Lab 2 instance ran.
+
+### Changed
+
+- What Comes Next links to the released Lab 2 EC2 Web lab.
+
 ## [1.0.1] - 2026-11-09
 
 ### Changed
