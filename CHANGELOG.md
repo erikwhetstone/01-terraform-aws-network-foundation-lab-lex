@@ -4,6 +4,13 @@ All notable changes to this lab are documented in this file.
 
 The format is based on Keep a Changelog, and this lab uses semantic versioning.
 
+## [1.0.1] - 2026-11-09
+
+### Changed
+
+- Repository renamed to `01-terraform-aws-network-foundation-lab` so the series repositories sort in curriculum order.
+- The deployment guide now links to the Lab 0 curriculum repository.
+
 ## [1.0.0] - 2026-11-06
 
 First release. Tested through the full HCP Terraform plan, apply, validate, re-plan, and destroy lifecycle with Terraform 1.17.1 and AWS provider 6.x.

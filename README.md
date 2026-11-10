@@ -223,7 +223,7 @@ You should also understand that Terraform state may contain infrastructure infor
 ## Repository Structure
 
 ```text
-terraform-aws-network-foundation-lab/
+01-terraform-aws-network-foundation-lab/
 |-- .gitignore
 |-- .terraform.lock.hcl
 |-- README.md

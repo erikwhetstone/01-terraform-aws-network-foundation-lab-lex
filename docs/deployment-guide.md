@@ -13,6 +13,8 @@ For removing the lab afterward, see `cleanup-guide.md`.
 - An AWS Budget configured as described in Lab 0.
 - Optional: the AWS CLI, for command-line validation.
 
+Lab 0 is the series curriculum repository: [00-terraform-aws-security-training](https://github.com/lshillingford/00-terraform-aws-security-training). Its setup guides cover the AWS training identity, HCP Terraform, and the AWS Budget.
+
 ## Step 1: Create the Workspace
 
 1. In HCP Terraform, create a new workspace.
